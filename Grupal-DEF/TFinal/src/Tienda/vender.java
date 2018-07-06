@@ -1,0 +1,265 @@
+package Tienda;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+
+public class vender extends JDialog implements ActionListener, ItemListener {
+
+	private final JPanel contentPanel = new JPanel();
+	private JLabel lblNombre;
+	private JLabel lblPrecios;
+	private JLabel lblCantidad;
+	private JComboBox cboNombre;
+	private JTextField txtPrecio;
+	private JTextField txtCantidad;
+	private JButton btnVender;
+	private JButton btnCerrar;
+	private JScrollPane scrollPane;
+	private JTextArea txtS;
+	public static int NumeroDcliente=0, couM0 ,couM1,couM2,couM3,couM4,covM0 ,covM1,covM2,covM3,covM4;
+	public static double acu0=0,acu1=0,acu2=0,acu3=0,acu4=0;
+	private JLabel lblImage;
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			vender dialog = new vender();
+			dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public vender() {
+		setTitle("Vender Perfume");
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		lblNombre = new JLabel("NOMBRE :");
+		lblNombre.setBounds(10, 11, 65, 14);
+		contentPanel.add(lblNombre);
+		
+		lblPrecios = new JLabel("Precio (S/) :");
+		lblPrecios.setBounds(10, 53, 65, 14);
+		contentPanel.add(lblPrecios);
+		
+		lblCantidad = new JLabel("Cantidad :");
+		lblCantidad.setBounds(10, 88, 65, 14);
+		contentPanel.add(lblCantidad);
+		
+		cboNombre = new JComboBox();
+		cboNombre.addItemListener(this);
+		cboNombre.setModel(new DefaultComboBoxModel(new String[] {"ALCAZAR", "ALLURE", "AQUA RUSH", "ENVY", "ALAIA"}));
+		cboNombre.setBounds(85, 8, 101, 20);
+		contentPanel.add(cboNombre);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setEditable(false);
+		txtPrecio.setBounds(85, 50, 101, 20);
+		contentPanel.add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		txtCantidad = new JTextField();
+		txtCantidad.setBounds(85, 85, 101, 20);
+		contentPanel.add(txtCantidad);
+		txtCantidad.setColumns(10);
+		
+		btnVender = new JButton("Vender");
+		btnVender.addActionListener(this);
+		btnVender.setBounds(335, 7, 89, 23);
+		contentPanel.add(btnVender);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(335, 49, 89, 23);
+		contentPanel.add(btnCerrar);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 113, 414, 126);
+		contentPanel.add(scrollPane);
+		
+		txtS = new JTextArea();
+		scrollPane.setViewportView(txtS);
+		
+		cboNombre.setToolTipText(ventanaPrincipal.nombre0);
+		txtPrecio.setText(""+ventanaPrincipal.precio0);
+		
+		lblImage = new JLabel("");
+		lblImage.setBounds(196, 8, 129, 100);
+		lblImage.setIcon(new ImageIcon(vender.class.getResource("/img/PerfumeAlcazar.jpg")));
+		contentPanel.add(lblImage);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnVender) {
+			actionPerformedBtnVender(e);
+		}
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		dispose();
+	}
+	public void itemStateChanged(ItemEvent arg0) {
+		if (arg0.getSource() == cboNombre) {
+			itemStateChangedCboNombre(arg0);
+		}
+	}
+	protected void itemStateChangedCboNombre(ItemEvent arg0) {
+		int posi;
+		double precio;
+		
+		posi = getPosi();
+		precio = getPrecio(posi);
+		mostrarPrecio(precio,posi);
+		mostrarImagen(posi);
+	}
+	int getPosi() {
+		return cboNombre.getSelectedIndex();
+	}
+	double getPrecio(int posi) {
+		switch (posi) {
+		case 0: return ventanaPrincipal.precio0;
+		case 1: return ventanaPrincipal.precio1;
+		case 2: return ventanaPrincipal.precio2;
+		case 3: return ventanaPrincipal.precio3;
+		default: return ventanaPrincipal.precio4;
+		}
+	}
+	void mostrarPrecio(double precio, int posi) {
+		txtPrecio.setText(""+precio);
+	}
+	void mostrarImagen(int posi) {
+		switch (posi) {
+		case 0: lblImage.setIcon(new ImageIcon(vender.class.getResource("/img/PerfumeAlcazar.jpg"))); break;
+		case 1: lblImage.setIcon(new ImageIcon(vender.class.getResource("/img/PerfumeAllure.jpg"))); break;
+		case 2: lblImage.setIcon(new ImageIcon(vender.class.getResource("/img/PerfumeAquaRush.jpg"))); break;
+		case 3: lblImage.setIcon(new ImageIcon(vender.class.getResource("/img/PerfumeEnvy.jpg"))); break;
+		default: lblImage.setIcon(new ImageIcon(vender.class.getResource("/img/PerfumeAlaia.jpg")));
+		}
+	}
+	protected void actionPerformedBtnVender(ActionEvent e) {
+		int posi, obse, can, cliente = 1;
+		double precio, impD = 0, impC, impP;
+		String premio, nombre;
+		
+		posi = getPosi();
+		nombre = getNombre();
+		can = getCan();
+		precio = getPrecio(posi);
+		impC = getImpC(precio, can);
+		impD = getImpD(impC, can);
+		impP = getImpP(impD,impC);
+		getNC(cliente);
+		MostrarBoleta( nombre, precio, can, impC, impD, impP, cliente);
+		getObse(impP);
+		getPremio();
+		getNventa(posi);
+		getUventa(posi,can);
+		getAcuImpP(posi,impP);	
+	}
+	String getNombre() {
+		return cboNombre.getSelectedItem().toString();
+	}
+	int getCan() {
+		return Integer.parseInt(txtCantidad.getText());
+	}
+	double getImpC (double precio, int can) {
+		return precio*can;
+	}
+	double getImpD (double impC, int can) {
+		
+		if (can >1 && can<6) return impC*ventanaPrincipal.porcentaje1/100;
+		else if (can >5 && can<11) return impC*ventanaPrincipal.porcentaje2/100;
+		else if (can >10 && can<=15) return impC*ventanaPrincipal.porcentaje3/100;
+		else return impC*ventanaPrincipal.porcentaje4/100;
+	}
+	double getImpP (double impD, double impC) {
+		return impC-impD;
+	}
+	void getObse (double impP) {
+		if (impP >= ventanaPrincipal.importeMinimoObsequiable)
+			txtS.append("\n\t!!!GANO OBSEQUIO¡¡¡\n");
+		else txtS.append("");
+	}
+	void getNC(int cliente) {
+		NumeroDcliente++;
+	}
+	void getPremio () {
+		if ( NumeroDcliente == ventanaPrincipal.numeroClienteSorpresa)
+			txtS.append("\n\t!!!GANO PREMIO SORPRESA¡¡¡"+"\n"+"\t\t"+"!!"+ventanaPrincipal.premioSorpresa+"¡¡\n\n");
+		else txtS.append("");
+	}
+	void MostrarBoleta (String nombre, double precio, int can, double impC, double impD, double impP, int cliente) {
+		txtS.setText("");
+		txtS.append("\n");
+		txtS.append("Nombre de Perfume :"+"\t"+nombre);
+		txtS.append("\n");
+		txtS.append("\nPrecio unitario :\t" + precio);
+		txtS.append("\n");
+		txtS.append("\nCantidad Adquirida :" + "\t" + can);
+		txtS.append("\nImporte de Compra :" + "\t" + impC);
+		txtS.append("\nImporte de Descuento :" + "\t" + impD);
+		txtS.append("\nImporte a Pagar :" + "\t" + impP);
+		txtS.append("\n");
+		txtS.append("\n");
+	}
+	
+	void getNventa(int posi)
+	{
+		switch(posi){
+		case 0: covM0++;break;
+		case 1: covM1++;break;
+		case 2: covM2++;break;
+		case 3: covM3++;break;
+		default :covM4++;break;			
+		}
+	}
+	void getUventa(int posi,int can)
+	{
+		switch(posi){
+		case 0: couM0+=can;break;
+		case 1: couM1+=can;break;
+		case 2: couM2+=can;break;
+		case 3: couM3+=can;break;
+		default :couM4+=can;break;			
+		}
+	}
+	void getAcuImpP(int posi,double impP)
+	{
+		switch(posi){
+		case 0: acu0+=impP;break;
+		case 1: acu1+=impP;break;
+		case 2: acu2+=impP;break;
+		case 3: acu3+=impP;break;
+		default :acu4+=impP;break;	
+		}
+	}
+}

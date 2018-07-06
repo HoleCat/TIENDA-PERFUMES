@@ -1,0 +1,62 @@
+package Tienda;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+
+public class configurarObsequio extends JDialog implements ActionListener {
+	private JButton btnCerrar;
+	private JLabel lblImporteMinimoA;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			configurarObsequio dialog = new configurarObsequio();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public configurarObsequio() {
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(null);
+		{
+			JButton btnGrabar = new JButton("GRABAR");
+			btnGrabar.setBounds(335, 11, 89, 23);
+			getContentPane().add(btnGrabar);
+		}
+		{
+			btnCerrar = new JButton("CERRAR");
+			btnCerrar.addActionListener(this);
+			btnCerrar.setBounds(335, 45, 89, 23);
+			getContentPane().add(btnCerrar);
+		}
+		
+		lblImporteMinimoA = new JLabel("Importe minimo a pagar :");
+		lblImporteMinimoA.setBounds(10, 15, 46, 14);
+		getContentPane().add(lblImporteMinimoA);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		dispose();
+	}
+}

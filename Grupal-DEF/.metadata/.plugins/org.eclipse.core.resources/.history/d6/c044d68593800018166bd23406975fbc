@@ -1,0 +1,110 @@
+package Tienda;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class configurarDescuentos extends JDialog implements ActionListener {
+
+	private final JPanel contentPanel = new JPanel();
+	private JButton btnGrabar;
+	private JButton btnCerrar;
+	private JLabel lblUnidades;
+	private JLabel lblUnidades_1;
+	private JLabel lblUnidades_2;
+	private JLabel lblMsDe;
+	private JTextField txtDesUno;
+	private JTextField txtDesDos;
+	private JTextField txtDesTres;
+	private JTextField txtDesCuatro;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			configurarDescuentos dialog = new configurarDescuentos();
+			dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public configurarDescuentos() {
+		setTitle("Configurar Descuentos");
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(null);
+		
+		btnGrabar = new JButton("GRABAR");
+		btnGrabar.setBounds(335, 11, 89, 23);
+		getContentPane().add(btnGrabar);
+		
+		btnCerrar = new JButton("CERRAR");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(335, 42, 89, 23);
+		getContentPane().add(btnCerrar);
+		
+		lblUnidades = new JLabel("1-5 unidades ");
+		lblUnidades.setBounds(10, 15, 80, 14);
+		getContentPane().add(lblUnidades);
+		
+		lblUnidades_1 = new JLabel("6-10 unidades");
+		lblUnidades_1.setBounds(10, 46, 80, 14);
+		getContentPane().add(lblUnidades_1);
+		
+		lblUnidades_2 = new JLabel("11-15 unidades");
+		lblUnidades_2.setBounds(10, 76, 103, 14);
+		getContentPane().add(lblUnidades_2);
+		
+		lblMsDe = new JLabel("M\u00E1s de 15 unidades");
+		lblMsDe.setBounds(10, 106, 124, 14);
+		getContentPane().add(lblMsDe);
+		
+		txtDesUno = new JTextField();
+		txtDesUno.setBounds(144, 12, 86, 20);
+		getContentPane().add(txtDesUno);
+		txtDesUno.setColumns(10);
+		
+		txtDesDos = new JTextField();
+		txtDesDos.setBounds(144, 43, 86, 20);
+		getContentPane().add(txtDesDos);
+		txtDesDos.setColumns(10);
+		
+		txtDesTres = new JTextField();
+		txtDesTres.setBounds(144, 73, 86, 20);
+		getContentPane().add(txtDesTres);
+		txtDesTres.setColumns(10);
+		
+		txtDesCuatro = new JTextField();
+		txtDesCuatro.setBounds(144, 103, 86, 20);
+		getContentPane().add(txtDesCuatro);
+		txtDesCuatro.setColumns(10);
+		
+		txtDesUno.setText(""+ventanaPrincipal.porcentaje1+" %");
+		txtDesDos.setText(""+ventanaPrincipal.porcentaje2+" %");
+		txtDesTres.setText(""+ventanaPrincipal.porcentaje3+" %");
+		txtDesCuatro.setText(""+ventanaPrincipal.porcentaje4+" %");
+		}
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(arg0);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent arg0) {
+		dispose();
+	}
+	}
+
+

@@ -1,0 +1,273 @@
+package Tienda;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import java.awt.Color;
+
+public class modificarPerfume extends JDialog implements ActionListener {
+
+	private final JPanel contentPanel = new JPanel();
+	private JLabel lblNombre;
+	private JLabel lblPrecios;
+	private JLabel lblContenidoml;
+	private JLabel lblAoDeLanzamiento;
+	private JLabel lblCasa;
+	private JTextField txtPrecio;
+	private JTextField txtContenido;
+	private JTextField txtAño;
+	private JTextField txtCasa;
+	private JButton btnCerrar;
+	private JButton btnGuardar;
+	private JComboBox cboNM;
+	private JLabel lblFoto;
+	private JLabel lblImage;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			modificarPerfume dialog = new modificarPerfume();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public modificarPerfume() {
+		setTitle("Modificar Perfume");
+		setBounds(100, 100, 450, 350);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(new Color(240, 128, 128));
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		lblNombre = new JLabel("NOMBRE :");
+		lblNombre.setForeground(UIManager.getColor("Button.disabledShadow"));
+		lblNombre.setBounds(10, 44, 69, 14);
+		contentPanel.add(lblNombre);
+		
+		lblPrecios = new JLabel("PRECIO (S/.) :");
+		lblPrecios.setForeground(UIManager.getColor("Button.disabledShadow"));
+		lblPrecios.setBounds(10, 69, 79, 14);
+		contentPanel.add(lblPrecios);
+		
+		lblContenidoml = new JLabel("CONTENIDO (ml) :");
+		lblContenidoml.setForeground(UIManager.getColor("Button.disabledShadow"));
+		lblContenidoml.setBounds(10, 94, 108, 14);
+		contentPanel.add(lblContenidoml);
+		
+		lblAoDeLanzamiento = new JLabel("A\u00D1O DE LANZAMIENTO :");
+		lblAoDeLanzamiento.setForeground(UIManager.getColor("Button.disabledShadow"));
+		lblAoDeLanzamiento.setBounds(10, 119, 143, 14);
+		contentPanel.add(lblAoDeLanzamiento);
+		
+		lblCasa = new JLabel("CASA :");
+		lblCasa.setForeground(UIManager.getColor("Button.disabledShadow"));
+		lblCasa.setBounds(10, 144, 46, 14);
+		contentPanel.add(lblCasa);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(154, 66, 108, 20);
+		contentPanel.add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		txtContenido = new JTextField();
+		txtContenido.setBounds(154, 91, 108, 20);
+		contentPanel.add(txtContenido);
+		txtContenido.setColumns(10);
+		
+		txtAño = new JTextField();
+		txtAño.setBounds(153, 116, 108, 20);
+		contentPanel.add(txtAño);
+		txtAño.setColumns(10);
+		
+		txtCasa = new JTextField();
+		txtCasa.setBounds(154, 141, 108, 20);
+		contentPanel.add(txtCasa);
+		txtCasa.setColumns(10);
+		
+		btnCerrar = new JButton("CERRAR");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(322, 40, 89, 23);
+		contentPanel.add(btnCerrar);
+		
+		btnGuardar = new JButton("GUARDAR");
+		btnGuardar.addActionListener(this);
+		btnGuardar.setBounds(322, 85, 89, 23);
+		contentPanel.add(btnGuardar);
+		
+		cboNM = new JComboBox();
+		cboNM.setModel(new DefaultComboBoxModel(new String[] {"ALCAZAR", "ALLURE", "AQUA RUSH", "ENVY", "ALAIA"}));
+		cboNM.addActionListener(this);
+		cboNM.setBounds(154, 41, 108, 20);
+		contentPanel.add(cboNM);
+		
+		cboNM.setToolTipText(ventanaPrincipal.nombre0);
+		txtPrecio.setText(""+ventanaPrincipal.precio0);
+		txtContenido.setText(""+ventanaPrincipal.contenido0);
+		txtAño.setText(""+ventanaPrincipal.año0);
+		txtCasa.setText(""+ventanaPrincipal.casa0);
+		
+		lblFoto = new JLabel("Foto :");
+		lblFoto.setForeground(UIManager.getColor("Button.highlight"));
+		lblFoto.setBounds(10, 193, 46, 14);
+		contentPanel.add(lblFoto);
+		
+		lblImage = new JLabel("");
+		lblImage.setIcon(new ImageIcon(modificarPerfume.class.getResource("/img/PerfumeAlcazar.jpg")));
+		lblImage.setBounds(60, 193, 129, 100);
+		contentPanel.add(lblImage);
+	}
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(arg0);
+		}
+		if (arg0.getSource() == btnGuardar) {
+			actionPerformedBtnGuardar(arg0);
+		}
+		if (arg0.getSource() == cboNM) {
+			actionPerformedCboNM(arg0);
+		}
+	}
+	protected void actionPerformedCboNM(ActionEvent arg0) {
+		int posi,año;
+		String nombre,casa;
+		double contenido,precio;
+		
+		posi = getPosi();
+		nombre = getNombre();
+		año = getAño(posi);
+		casa = getCasa(posi);
+		contenido = getContenido(posi);
+		precio = getPrecio(posi);
+		mostrarInfoPerfume(año,casa,contenido,precio);
+		mostrarImagen(posi);
+	}
+	int getPosi() {
+		return cboNM.getSelectedIndex();
+	}
+	String getNombre() {
+		return cboNM.getSelectedItem().toString();
+	}
+	double getPrecio(int posi) {
+		switch (posi) {
+		case 0: return ventanaPrincipal.precio0;
+		case 1: return ventanaPrincipal.precio1;
+		case 2: return ventanaPrincipal.precio2;
+		case 3: return ventanaPrincipal.precio3;
+		default: return ventanaPrincipal.precio4;
+		}
+	}
+	int getAño(int posi) {
+		switch (posi) {
+		case 0: return ventanaPrincipal.año0;
+		case 1: return ventanaPrincipal.año1;
+		case 2: return ventanaPrincipal.año2;
+		case 3: return ventanaPrincipal.año3;
+		default: return ventanaPrincipal.año4;
+		}
+	}
+	String getCasa(int posi) {
+		switch (posi) {
+		case 0: return ventanaPrincipal.casa0;
+		case 1: return ventanaPrincipal.casa1;
+		case 2: return ventanaPrincipal.casa2;
+		case 3: return ventanaPrincipal.casa3;
+		default: return ventanaPrincipal.casa4;
+		}
+	}
+	double getContenido(int posi) {
+		switch (posi) {
+		case 0: return ventanaPrincipal.contenido0;
+		case 1: return ventanaPrincipal.contenido1;
+		case 2: return ventanaPrincipal.contenido2;
+		case 3: return ventanaPrincipal.contenido3;
+		default: return ventanaPrincipal.contenido4;
+		}
+	}
+	void mostrarInfoPerfume(int año, String casa, double contenido, double precio)
+	{
+	   txtPrecio.setText(""+precio);
+	   txtContenido.setText(""+contenido);
+	   txtAño.setText(""+año);
+	   txtCasa.setText(""+casa);   
+	}
+	void mostrarImagen(int posi) {
+		switch (posi) {
+		case 0 : lblImage.setIcon(new ImageIcon(modificarPerfume.class.getResource("/img/PerfumeAlcazar.jpg"))); break;
+		case 1 : lblImage.setIcon(new ImageIcon(modificarPerfume.class.getResource("/img/PerfumeAllure.jpg"))); break;
+		case 2 : lblImage.setIcon(new ImageIcon(modificarPerfume.class.getResource("/img/PerfumeAquaRush.jpg"))); break;
+		case 3 : lblImage.setIcon(new ImageIcon(modificarPerfume.class.getResource("/img/PerfumeEnvy.jpg"))); break;
+		default : lblImage.setIcon(new ImageIcon(modificarPerfume.class.getResource("/img/PerfumeAlaia.jpg"))); break;
+		}
+	}
+	protected void actionPerformedBtnGuardar(ActionEvent arg0) {
+		int posi;
+		posi=cboNM.getSelectedIndex();
+		getPrecio2(posi);
+		getCasa2(posi);
+		getAño2(posi);
+		getContenido2(posi);
+		
+	}
+	
+	void getPrecio2(int posi) {
+		switch (posi) {
+		case 0 : ventanaPrincipal.precio0=Double.parseDouble(txtPrecio.getText()); break;
+		case 1 : ventanaPrincipal.precio1=Double.parseDouble(txtPrecio.getText()); break;
+		case 2 : ventanaPrincipal.precio2=Double.parseDouble(txtPrecio.getText()); break;
+		case 3 : ventanaPrincipal.precio3=Double.parseDouble(txtPrecio.getText()); break;
+		default : ventanaPrincipal.precio4=Double.parseDouble(txtPrecio.getText()); break;
+		}
+	}
+
+	void getAño2(int posi) {
+		switch (posi) {
+		case 0 : ventanaPrincipal.año0=Integer.parseInt(txtAño.getText()); break;
+		case 1 : ventanaPrincipal.año1=Integer.parseInt(txtAño.getText()); break;
+		case 2 : ventanaPrincipal.año2=Integer.parseInt(txtAño.getText()); break;
+		case 3 : ventanaPrincipal.año3=Integer.parseInt(txtAño.getText()); break;
+		default : ventanaPrincipal.año4=Integer.parseInt(txtAño.getText()); break;
+		}
+	}
+	void getCasa2(int posi) {
+		switch (posi) {
+		case 0 : ventanaPrincipal.casa0=txtCasa.getText(); break;
+		case 1 : ventanaPrincipal.casa1=txtCasa.getText(); break;
+		case 2 : ventanaPrincipal.casa2=txtCasa.getText(); break;
+		case 3 : ventanaPrincipal.casa3=txtCasa.getText(); break;
+		default : ventanaPrincipal.casa4=txtCasa.getText(); break;
+		}
+	}
+	void getContenido2(int posi) {
+		switch (posi) {
+		case 0 : ventanaPrincipal.contenido0=Double.parseDouble(txtContenido.getText()); break;
+		case 1 : ventanaPrincipal.contenido1=Double.parseDouble(txtContenido.getText()); break;
+		case 2 : ventanaPrincipal.contenido2=Double.parseDouble(txtContenido.getText()); break;
+		case 3 : ventanaPrincipal.contenido3=Double.parseDouble(txtContenido.getText()); break;
+		default :  ventanaPrincipal.contenido4=Double.parseDouble(txtContenido.getText()); break;
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent arg0) {
+		dispose();
+	}
+}
